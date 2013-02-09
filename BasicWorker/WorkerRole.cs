@@ -29,7 +29,7 @@ namespace WorkerRole1
 
 		public void DoWork()
 		{
-			Thread.Sleep(TimeSpan.FromSeconds(1D));
+			Thread.Sleep(10000);
 		}
 
 		public override void OnStop()
