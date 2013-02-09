@@ -15,23 +15,24 @@ namespace SafeWorkerRole
 	{
 		private CancellationTokenSource _cancellationTokenSource;
 		private ManualResetEvent _safeToExitHandle;
+		private DateTime _startTime;
 
 		public override void Run()
 		{
-			Trace.WriteLine("SafeWorker: Entry point called", "Information");
+			TraceWriteLine("Entry point called");
 			_cancellationTokenSource = new CancellationTokenSource();
 			_safeToExitHandle = new ManualResetEvent(false);
 			var token = _cancellationTokenSource.Token;
 
 			while (!token.IsCancellationRequested)
 			{
-				Trace.WriteLine("SafeWorker: Starting some work", "Information");
+				TraceWriteLine("Starting some work");
 				DoWork();
-				Trace.WriteLine("SafeWorker: Finished some work", "Information");
+				TraceWriteLine("Finished some work");
 				token.WaitHandle.WaitOne(10000);	// sleep 10s or exit early if cancellation is signalled
 			}
 
-			Trace.WriteLine("SafeWorker: Ready to exit", "Information");
+			TraceWriteLine("Ready to exit");
 			_safeToExitHandle.Set();	// cleanly exited the main loop
 		}
 
@@ -42,14 +43,15 @@ namespace SafeWorkerRole
 
 		public override void OnStop()
 		{
-			Trace.WriteLine("SafeWorker: OnStop Called", "Information");
+			TraceWriteLine("OnStop Called");
 			_cancellationTokenSource.Cancel();
 			_safeToExitHandle.WaitOne();
-			Trace.WriteLine("SafeWorker: OnStop Complete, Exiting Safely", "Information");
+			TraceWriteLine("OnStop Complete, Exiting Safely");
 		}
 
 		public override bool OnStart()
 		{
+			_startTime = DateTime.Now;
 			// Set the maximum number of concurrent connections 
 			ServicePointManager.DefaultConnectionLimit = 12;
 
@@ -57,6 +59,19 @@ namespace SafeWorkerRole
 			// see the MSDN topic at http://go.microsoft.com/fwlink/?LinkId=166357.
 
 			return base.OnStart();
+		}
+
+		public double SecondsSinceStarting
+		{
+			get
+			{
+				return (DateTime.Now - _startTime).TotalSeconds;
+			}
+		}
+
+		public void TraceWriteLine(string message)
+		{
+			Trace.WriteLine(String.Format("{0:000.0}s - {1} - {2}", SecondsSinceStarting, "SafeWorker", message), "Information");
 		}
 	}
 }

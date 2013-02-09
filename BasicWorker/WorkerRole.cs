@@ -13,17 +13,20 @@ namespace WorkerRole1
 {
 	public class WorkerRole : RoleEntryPoint
 	{
+		private DateTime _startTime;
+
 		public override void Run()
 		{
 			// This is a sample worker implementation. Replace with your logic.
-			Trace.WriteLine("BasicWorker: Entry point called", "Information");
+			TraceWriteLine("Entry point called");
+
 
 			while (true)
 			{
 				Thread.Sleep(10000);
-				Trace.WriteLine("BasicWorker: Starting some work", "Information");
+				TraceWriteLine("Starting some work");
 				DoWork();
-				Trace.WriteLine("BasicWorker: Finished some work", "Information");
+				TraceWriteLine("Finished some work");
 			}
 		}
 
@@ -34,11 +37,12 @@ namespace WorkerRole1
 
 		public override void OnStop()
 		{
-			Trace.WriteLine("BasicWorker: OnStop", "Information");
+			TraceWriteLine("OnStop");
 		}
 
 		public override bool OnStart()
 		{
+			_startTime = DateTime.Now;
 			// Set the maximum number of concurrent connections 
 			ServicePointManager.DefaultConnectionLimit = 12;
 
@@ -46,6 +50,19 @@ namespace WorkerRole1
 			// see the MSDN topic at http://go.microsoft.com/fwlink/?LinkId=166357.
 
 			return base.OnStart();
+		}
+
+		public double SecondsSinceStarting
+		{
+			get
+			{
+				return (DateTime.Now - _startTime).TotalSeconds;
+			}
+		}
+
+		public void TraceWriteLine(string message)
+		{
+			Trace.WriteLine(String.Format("{0:000.0}s - {1} - {2}", SecondsSinceStarting, "BasicWorker", message), "Information");
 		}
 	}
 }
