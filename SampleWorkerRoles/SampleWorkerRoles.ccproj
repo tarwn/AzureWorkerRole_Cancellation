@@ -37,12 +37,12 @@
     <ServiceConfiguration Include="ServiceConfiguration.Cloud.cscfg" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\WorkerRole1\WaitHandleWorker.csproj">
-      <Name>WaitHandleWorker</Name>
+    <ProjectReference Include="..\WorkerRole1\BasicWorker.csproj">
+      <Name>BasicWorker</Name>
       <Project>{73e38956-6793-4e44-b056-498240c06280}</Project>
       <Private>True</Private>
       <RoleType>Worker</RoleType>
-      <RoleName>WaitHandleWorker</RoleName>
+      <RoleName>BasicWorker</RoleName>
       <UpdateDiagnosticsConnectionStringOnPublish>True</UpdateDiagnosticsConnectionStringOnPublish>
     </ProjectReference>
   </ItemGroup>

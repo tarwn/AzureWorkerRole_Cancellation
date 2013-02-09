@@ -16,13 +16,25 @@ namespace WorkerRole1
 		public override void Run()
 		{
 			// This is a sample worker implementation. Replace with your logic.
-			Trace.WriteLine("WorkerRole1 entry point called", "Information");
+			Trace.WriteLine("BasicWorker: Entry point called", "Information");
 
 			while (true)
 			{
 				Thread.Sleep(10000);
-				Trace.WriteLine("Working", "Information");
+				Trace.WriteLine("BasicWorker: Starting some work", "Information");
+				DoWork();
+				Trace.WriteLine("BasicWorker: Finished some work", "Information");
 			}
+		}
+
+		public void DoWork()
+		{
+			Thread.Sleep(TimeSpan.FromSeconds(1D));
+		}
+
+		public override void OnStop()
+		{
+			Trace.WriteLine("BasicWorker: OnStop", "Information");
 		}
 
 		public override bool OnStart()

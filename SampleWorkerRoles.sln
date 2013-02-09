@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
 Project("{CC5FD16D-436D-48AD-A40C-5A424C6E3E79}") = "SampleWorkerRoles", "SampleWorkerRoles\SampleWorkerRoles.ccproj", "{C4A4FF59-6B2A-4E03-AA1E-25107E73F2D0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WaitHandleWorker", "WorkerRole1\WaitHandleWorker.csproj", "{73E38956-6793-4E44-B056-498240C06280}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BasicWorker", "BasicWorker\BasicWorker.csproj", "{73E38956-6793-4E44-B056-498240C06280}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
