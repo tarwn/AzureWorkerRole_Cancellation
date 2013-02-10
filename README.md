@@ -1,7 +1,7 @@
 AzureWorkerRole Cancellation
 ============================
 
-Blog Post: Azure Worker Role - Exiting Safely, LessThanDot.com (http://blogs.lessthandot.com/index.php/DesktopDev/MSTech/azure-worker-role-exiting-safely)
+Blog Post: [Azure Worker Role - Exiting Safely, LessThanDot.com] (http://blogs.lessthandot.com/index.php/DesktopDev/MSTech/azure-worker-role-exiting-safely)
 
 This project is a pair of Azure Worker Roles to show the difference in behavior 
 between the out-of-the-box sample code Microsoft provides for a Worker Role and 
